@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-welcome">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>Full Name: {{ user.full_name }}</p>
+    <p>Email: {{ user.email }}</p>
+</div>
+<div class="dashboard-actions">
+    <a href="{{ url_for('profile') }}">Update Profile</a>
+    <a href="{{ url_for('grades') }}">View Grades</a>
+    <a href="{{ url_for('reset_password') }}">Reset Password</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+{% endblock %}

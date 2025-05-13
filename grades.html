@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Grades</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grade in grades %}
+        <tr>
+            <td>{{ grade.subject_name }}</td>
+            <td>{{ grade.grade }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+{% endblock %}

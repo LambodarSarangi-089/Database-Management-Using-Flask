@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Profile</h2>
+<form id="profileForm" method="POST" action="{{ url_for('profile') }}">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" value="{{ current_user.full_name }}" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ current_user.email }}" required>
+    
+    <button type="submit" id="updateButton">Update Profile</button>
+</form>
+<p id="successMessage"></p>
+
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    #successMessage {
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    #updateButton.clicked {
+        background-color: #A27B5C;
+        transform: scale(1.1);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+</style>
+
+<script>
+document.getElementById("profileForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+    let updateButton = document.getElementById("updateButton");
+    let successMessage = document.getElementById("successMessage");
+
+    updateButton.classList.add("clicked");
+
+    fetch("{{ url_for('profile') }}", { method: "POST", body: formData })
+    .then(response => response.json())
+    .then(data => {
+        updateButton.classList.remove("clicked");
+        successMessage.innerHTML = data.success ? "Profile updated successfully! 🎉" : "Update failed. Please try again.";
+        successMessage.style.color = data.success ? "green" : "red";
+        successMessage.style.opacity = 1;
+        successMessage.style.animation = "fadeIn 0.5s ease-in-out";
+    })
+    .catch(error => {
+        updateButton.classList.remove("clicked");
+        successMessage.innerHTML = "Profile Updated Successfully";
+        successMessage.style.color = "red";
+        successMessage.style.opacity = 1;
+    });
+});
+</script>
+{% endblock %}

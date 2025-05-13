@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Records Portal</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #DCD7C9;
+            color: #2C3639;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            margin: 2rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            background: #FFFFFF;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2C3639;
+            margin: 0;
+        }
+
+        nav {
+            background: #2C3639;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #DCD7C9;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #A27B5C;
+            bottom: 0;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        nav a:hover {
+            background: #3F4E4F;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        .button {
+            background: #2C3639;
+            color: #DCD7C9;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background: #3F4E4F;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .alert {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .alert-success {
+            background: #A27B5C;
+            color: #DCD7C9;
+        }
+
+        .alert-danger {
+            background: #3F4E4F;
+            color: #DCD7C9;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            color: #2C3639;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            padding: 0.5rem;
+            border: 2px solid #3F4E4F;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #FFFFFF;
+        }
+
+        button[type="submit"] {
+            background: #2C3639;
+            color: #DCD7C9;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: #3F4E4F;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #3F4E4F;
+        }
+
+        th {
+            background: #2C3639;
+            color: #DCD7C9;
+        }
+
+        tr {
+            transition: background 0.3s ease;
+        }
+
+        tr:hover {
+            background: rgba(63, 78, 79, 0.1);
+        }
+
+        a {
+            color: #2C3639;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #A27B5C;
+        }
+
+        .dashboard-welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-welcome h2 {
+            color: #2C3639;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .dashboard-actions a {
+            background: #2C3639;
+            color: #DCD7C9;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .dashboard-actions a:hover {
+            background: #3F4E4F;
+            transform: scale(1.05);
+        }
+
+        .constant-text {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2C3639;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Student Academic Records Portal</h1>
+    </div>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('grades') }}">Grades</a>
+            <a href="{{ url_for('reset_password') }}">Reset Password</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Signup</a>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="alert alert-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class="content">
+        <div class="card">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
