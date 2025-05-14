@@ -36,8 +36,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # 3. Start MySQL Server and log into MySQL
-#    Create a database named 'flask_auth':
-#    CREATE DATABASE flask_auth;
+   Create a database named 'flask_auth':
+   CREATE DATABASE flask_auth;
 
 # 4. Optionally, you can run the schema.sql file manually in your MySQL client to create tables
 #    or let Flask handle it automatically (tables will be created on app start)
